@@ -1,0 +1,51 @@
+html{
+    background-color: azure;
+}
+#btm{
+    background-color: antiquewhite;
+    /* font-size: 50px;
+    height: 60px;
+    width: 200px; */
+}
+#inner {
+    display: table;
+    margin: 0 auto;
+  }
+#menu{
+    display: flex;border: 0.5px black solid;background-color: aqua;
+    /* background-color: aqua; */
+  }
+
+.me{padding: 2px 2px; 
+  /* border: 0.5px black solid; */
+  -webkit-transition: all .15s linear;
+  -moz-transition: all .15s linear;
+  -o-transition: all .15s linear;
+    background-color: aqua;
+margin-right: 3px;
+cursor: pointer;
+  }
+.me:hover{
+   -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.1);
+  -o-transform: scale(1.1); 
+    background-color: rgb(26, 255, 255)
+  }
+  .me:active{
+    background-color: rgb(33, 204, 204);
+  }
+  .per1{background-color: rgb(192, 255, 200);}
+  .per2{background-color: rgb(192, 251, 255);}
+  .per3{background-color: rgb(255, 192, 192);}
+  .per4{background-color: rgb(219, 192, 255);}
+  .per5{background-color: rgb(255, 251, 192);}
+  .per6{background-color: rgb(253, 192, 255);}
+  .tr{
+    transition: 0.5s;
+  }
+
+  #c{
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+  }

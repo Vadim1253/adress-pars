@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style.css"><link rel="icon" type="image/x-icon" href="/ico.ico">
+    <title>Адреса по городам</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="eel.js"></script>
+</head>
+<body>
+    <div id="inner">
+    
+    <div id="menu">
+    <!-- <div class="me"><button type="button" onclick="adr()">Подбор адресов</button> </div>
+    <div class="me"><button type="button" onclick="adrpars()">Парсер</button></div>
+    <div class="me"><button type="button" onclick="ind()">Индексы</button></div>
+    <div class="me"><button type="button" onclick="transk()">Перевод</button></div>
+    <div class="me"><button type="button" onclick="spra()">Спряжение</button></div> -->
+    <div class="me" onclick="adr()" id="bnadr">Подбор адресов</div>
+    <div class="me" onclick="adrpars()" id="bnadrpars">Парсер</div>
+    <div class="me" onclick="ind()" id="bnind">Индексы</div>
+    <div class="me" onclick="transk()" id="bntransk">Перевод</div>
+    <div class="me" onclick="spra()" id="bnspra">Спряжение</div>
+    <div class="me" onclick="koord()" id="bnkoord">Координаты</div>
+</div>
+    <h1 id="h1">Адреса по городам</h1>
+    <h4 id="h42"> </h4>
+    <form name="publish" id="adress" onsubmit="return false;">
+        <select name="sta" id="sta" style="margin-top:10px;">
+            <option value="1">Обычный подбор</option>
+            <option value="2">Новый</option>
+        </select>
+        <p class="p">Города</p>
+        <textarea name="ci" id="ci" cols="60" rows="20" style="margin-top: 10px;"></textarea>  <br>
+        <button type="button" onclick="res()">Начать</button>  
+    </form>
+    <form name="publish" id="adrp" onsubmit="return false;">
+        <!-- <select name="sta" id="sta">
+            <option value="1">Обычный подбор</option>
+            <option value="2">Новый</option>
+        </select> -->
+        <p class="p">Запрос</p>
+        <input type="text" id="serc">
+        <p class="p">Города</p>
+        <textarea name="ci1" id="ci1" cols="60" rows="20" style="margin-top: 10px;"></textarea>  <br>
+        <button type="button" onclick="res1()">Начать</button>  
+    </form>
+    <form name="publish" id="inde" onsubmit="return false;">
+        <p class="p">Адреса</p>
+        <textarea name="ci2" id="ci2" cols="60" rows="20" style="margin-top: 10px;"></textarea>  <br>
+        <button type="button" onclick="res2()">Начать</button>  
+    </form>
+    <form name="publish" id="tran" onsubmit="return false;">
+        <p class="p">Введите текст</p>
+        <textarea name="ci3" id="ci3" cols="60" rows="20" style="margin-top: 10px;"></textarea>  <br>
+        <button type="button" onclick="res3()">Начать</button>  
+    </form>
+    <form name="publish" id="spr" onsubmit="return false;">
+        <select name="sta1" id="sta1" style="margin-top:10px;">
+            <option value="1">Вопрос "Где?" (в Москве)</option>
+            <option value="2">Вопрос "кому, чему?" (Москве)</option>
+            <option value="3">Вопрос "о ком, о чём?" (о Москве)</option>
+        </select>
+        <p class="p">Города</p>
+        <textarea name="ci4" id="ci4" cols="60" rows="20" style="margin-top: 10px;"></textarea>  <br>
+        <button type="button" onclick="res4()">Начать</button>  
+    </form>
+    <form name="publish" id="koo" onsubmit="return false;">
+        <select name="sta2" id="sta2" style="margin-top:10px;">
+            <option value="1">Обычный подбор</option>
+            <option value="2">Новый(не точный)</option>
+        </select><br>
+        <p class="p">Адреса</p>
+        <textarea name="ci5" id="ci5" cols="60" rows="20" style="margin-top: 10px;"></textarea>  <br>
+        <button type="button" onclick="res5()">Начать</button>  
+    </form>
+<button type="button" id="hidee" onclick="hide()">Очистить</button>  <br>
+<button type="button" id="cop" onclick="cop()">Копировать</button>  <br>
+ <p id="viv">Вывод:</p>
+<textarea name="res" id="res" cols="60" rows="17" style="margin-top: 10px;"></textarea>
+<br><br></div>
+<p id="c">Goodini &#128121;</p>
+    <script>
+        $('#adrp').hide();$('#inde').hide();$('#tran').hide();$('#spr').hide();$('#koo').hide();
+        //async function ca(){
+        function ca(ci,sta){
+                var sta = document.getElementById('sta').value;
+            eel.cfc(ci,sta);
+            //<!-- await eel.cfc("ggggg"); -->
+        };
+        
+        document.forms.publish.onsubmit = function() {
+            var city = this.ci.value;
+            console.log(city)
+            
+            
+$('#h41').show();
+
+            $('#h42').show();
+            //return false;
+            ca(city,sta);
+          };
+          function vivs() {
+            //document.getElementById("viv").value="Процесс...";
+            document.getElementById('viv').textContent = 'Процесс...';
+            $("#viv").css({"color":"red"});
+        };
+        function vivh() {
+            document.getElementById('viv').textContent = 'Вывод:';
+            $("#viv").css({"color":"black"});
+            //document.getElementById("viv").value="Вывод:";
+        };
+          function res() {hide();vivs();
+              var city = document.getElementById('ci').value;
+              var sta=document.getElementById('sta');
+
+              ca(city,sta);
+            };
+            function res1() {hide();vivs();
+                var city = document.getElementById('ci1').value;
+                var serc=document.getElementById('serc').value;
+                eel.pars(city,serc);
+              };
+              function res2() {hide();vivs();
+                var ad = document.getElementById('ci2').value;
+                eel.ind(ad);
+              };
+              function res3() {hide();vivs();
+                var ci = document.getElementById('ci3').value;
+                eel.tra(ci);
+              };
+              function res4() {hide();vivs();
+                var ci = document.getElementById('ci4').value;
+                var sta1=document.getElementById('sta1').value;
+                eel.sprr(ci,sta1);
+              };
+              function res5() {hide();vivs();
+                var ad = document.getElementById('ci5').value;
+                var sta2=document.getElementById('sta2').value;
+                eel.ko(ad,sta2);
+              };
+    </script>
+</body>
+<script>
+    function cop(){ 
+        qq=1;
+        
+        zz=document.getElementById("res");
+        
+        zz.select();    
+        document.execCommand("copy");
+       
+    }
+    function hide(){ 
+        qq=1;
+        zz=document.getElementById("res");
+        zz.value="";
+    }
+    eel.expose(sh);
+    function sh(q){      
+        //document.getElementById("show"+i).innerHTML = q;
+        document.getElementById("res").value=q;
+        
+};
+eel.expose(sh1);
+function sh1(q){      
+    //document.getElementById("show"+i).innerHTML = q;
+    if (document.getElementById("res").value != ''){vivs();
+        q1=document.getElementById("res").value;
+        document.getElementById("res").value=q1+"\n"+q;
+    }
+    else{document.getElementById("res").value=q;
+
+    }vivh();
+};
+    eel.expose(sh2);
+    function sh2(q){      
+        //document.getElementById("show"+i).innerHTML = q;
+        if (document.getElementById("res").value != ''){vivs();
+            q1=document.getElementById("res").value;
+            document.getElementById("res").value=q1+"\n"+q;
+        }
+        else{document.getElementById("res").value=q;
+        }vivh();
+};
+eel.expose(sh3);
+    function sh3(q){      
+        //document.getElementById("show"+i).innerHTML = q;
+        if (document.getElementById("res").value != ''){vivs();
+            q1=document.getElementById("res").value;
+            document.getElementById("res").value=q1+"\n"+q;
+        }
+        else{document.getElementById("res").value=q;
+        }vivh();
+};
+eel.expose(sh4);
+    function sh4(q){      
+        //document.getElementById("show"+i).innerHTML = q;
+        if (document.getElementById("res").value != ''){vivs();
+            q1=document.getElementById("res").value;
+            document.getElementById("res").value=q1+"\n"+q;
+        }
+        else{document.getElementById("res").value=q;
+        }vivh();
+};
+eel.expose(sh5);
+    function sh5(q){      
+        //document.getElementById("show"+i).innerHTML = q;
+        if (document.getElementById("res").value != ''){vivs();
+            q1=document.getElementById("res").value;
+            document.getElementById("res").value=q1+"\n"+q;
+        }
+        else{document.getElementById("res").value=q;
+        }vivh();
+};
+eel.expose(bshow);
+function bshow(){ 
+    $('#h41').show();
+    $('#h42').hide();
+};
+function allHide(){
+    $('#adress').hide();$('#inde').hide();$('#tran').hide();$('#spr').hide();$('#adrp').hide();$('#koo').hide();
+}
+function backGide(){
+    $('html').removeClass("per6");$('html').removeClass("per1");$('html').removeClass("per2");$('html').removeClass("per3");$('html').removeClass("per4");$('html').removeClass("per5");
+}
+function adrpars(){allHide();
+    $('#adrp').show();
+    document.getElementById('h1').textContent = 'Парсинг адресов';$("html").css({"backgroundColor":"rgb(192, 255, 200)"});
+    //backGide();$('html').addClass("per1");
+}
+function adr(){allHide();
+    $('#adress').show();
+    document.getElementById('h1').textContent = 'Адреса по городам';$("html").css({"backgroundColor":"rgb(192, 251, 255)"});
+}
+function ind(){allHide();
+    $('#inde').show();
+    document.getElementById('h1').textContent = 'Индексы по адресам';$("html").css({"backgroundColor":"rgb(255, 192, 192)"});
+}
+function transk(){allHide();
+    $('#tran').show();
+    document.getElementById('h1').textContent = 'Перевод';$("html").css({"backgroundColor":"rgb(219, 192, 255)"});
+}
+function spra(){allHide();
+    $('#spr').show();
+    document.getElementById('h1').textContent = 'Спряжения городов';$("html").css({"backgroundColor":"rgb(255, 251, 192)"});
+}
+function koord(){allHide();
+    $('#koo').show();
+    document.getElementById('h1').textContent = 'Координаты';$("html").css({"backgroundColor":"rgb(253, 192, 255)"});
+}
+adrpar=document.getElementById("adrp");
+/*ad=document.getElementById("res");
+indd=document.getElementById("res");
+trans=document.getElementById("res");
+spr=document.getElementById("res");
+ko=document.getElementById("res");*/
+$(document).ready(function(){
+    $('#bnadrpars').hover(
+        function(){setTimeout(function() { $('html').addClass("per1");allHide();adrpars();}, (140));},function(){
+            $('html').removeClass("per1");
+            //$('html').removeClass("tr");
+        }
+    );
+});
+$(document).ready(function(){$('html').addClass("tr");
+    $('#bnadr').hover(
+        function(){setTimeout(function() { $('html').addClass("per2");allHide();adr();}, (140));},function(){
+            $('html').removeClass("per2");
+            //$('html').removeClass("tr");
+        }
+    );
+});
+$(document).ready(function(){$('html').addClass("tr");
+    $('#bnind').hover(
+        function(){setTimeout(function() { $('html').addClass("per3");allHide();ind();}, (140));},function(){
+            $('html').removeClass("per3");
+            //$('html').removeClass("tr");
+        }
+    );
+});
+$(document).ready(function(){$('html').addClass("tr");
+    $('#bntransk').hover(
+        function(){setTimeout(function() { $('html').addClass("per4");allHide();transk();}, (140));},function(){
+            $('html').removeClass("per4");
+        }
+    );
+});
+$(document).ready(function(){$('html').addClass("tr");
+    $('#bnspra').hover(
+        function(){setTimeout(function() { $('html').addClass("per5");allHide();spra();}, (140));},function(){
+            $('html').removeClass("per5");
+        }
+    );
+});
+$(document).ready(function(){$('html').addClass("tr");
+    $('#bnkoord').hover(
+        function(){setTimeout(function() { $('html').addClass("per6");allHide();koord();}, (140));},function(){
+            $('html').removeClass("per6");
+            //$('html').removeClass("tr");
+        }
+    );
+});
+/*
+adrpar.onmouseout=function(event){
+    allHide();adrpars();
+};*/
+//document.getElementById("res");
+
+
+
+</script>
+</html>
